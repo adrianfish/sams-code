@@ -4,19 +4,28 @@ import matplotlib.pyplot as pyplot
 choice = '0'
 choice = input('Enter a choice, "a" for Earth orbit, or "b" for orbit of the Earth and the moon: ')
 
+def earch_accel(x_or_y, x, y, c):
+    return -(c['G'] * c['m_earth'] * x_or_y) / ((x ** 2 + y ** 2) ** (3 / 2))
+
 if choice == 'a':
     def x_accel(x, y, c):
-        return -(c['G'] * c['m_earth'] * x) / ((x ** 2 + y ** 2) ** (3 / 2))
+        #return -(c['G'] * c['m_earth'] * x) / ((x ** 2 + y ** 2) ** (3 / 2))
+        return earth_accel(x, x, y, c)
     def y_accel(x, y, c):
-        return -(c['G'] * c['m_earth'] * y) / ((x ** 2 + y ** 2) ** (3 / 2))
+        #return -(c['G'] * c['m_earth'] * y) / ((x ** 2 + y ** 2) ** (3 / 2))
+        return earth_accel(y, x, y, c)
 
 elif choice == 'b':
     def x_accel(x, y, c):
-        return -(c['G'] * c['m_earth'] * x) / ((x ** 2 + y ** 2) ** (3 / 2))\
+        #return -(c['G'] * c['m_earth'] * x) / ((x ** 2 + y ** 2) ** (3 / 2))\
+        #        - (c['G'] * c['m_moon'] * x) / ((x ** 2 + (y - 3.844e8) ** 2) ** (3 / 2))
+        return earch_accel(x, x, y, c)\
                 - (c['G'] * c['m_moon'] * x) / ((x ** 2 + (y - 3.844e8) ** 2) ** (3 / 2))
 
     def y_accel(x, y, c):
-        return -(c['G'] * c['m_earth'] * y) / ((x ** 2 + y ** 2) ** (3 / 2))\
+        #return -(c['G'] * c['m_earth'] * y) / ((x ** 2 + y ** 2) ** (3 / 2))\
+        #        - c['G'] * c['m_moon'] * (y - 3.844e8) / ((x ** 2 + (y - 3.844e8) ** 2) ** (3 / 2))
+        return earch_accel(y, x, y, c)\
                 - c['G'] * c['m_moon'] * (y - 3.844e8) / ((x ** 2 + (y - 3.844e8) ** 2) ** (3 / 2))
 else:
     quit()
